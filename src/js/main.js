@@ -1,62 +1,45 @@
-Number.isNaN = Number.isNaN || function(value) {
-    return typeof value === 'number' && isNaN(value);
-}
-
 $(function() {
 
-    $(window).scroll(function() {
-        if ($(window).width() > '991') {
-            if ($(this).scrollTop() > 90) {
-                $('.header').addClass('fixed');
-                $('body').css('padding-top', '90px');
-            } else if ($(this).scrollTop() < 90) {
-                $('.header').removeClass('fixed');
-                $('body').css('padding-top', '0');
-            }
-        }
+    $('.works-slider').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        centerMode: true,
+        variableWidth: true
     });
 
-    jQuery("a.scrollto").click(function() {
-        elementClick = jQuery(this).attr("href")
-        destination = jQuery(elementClick).offset().top;
-        jQuery("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination }, 700);
-        return false;
-    });
+});
 
-    $('#hamburger-icon').click(function() {
-        $(this).toggleClass('active');
-        if ($(this).hasClass('active')) {
-            $('.mobile-menu').addClass('active');
-            $('html').addClass('ov-hidden');
-        } else {
-            $('.mobile-menu').removeClass('active');
-            $('html').removeClass('ov-hidden');
-        }
-    });
+ymaps.ready(function() {
+    var myMap = new ymaps.Map('map', {
+            center: [51.845704, 55.132475],
+            zoom: 15,
+            scrollZoom: false,
+            controls: ['zoomControl']
+        }, {
+            searchControlProvider: 'yandex#search'
+        }),
 
-    $('.mobile-menu .top-menu a').click(function() {
-        $('#hamburger-icon').removeClass('active');
-        $('.mobile-menu').removeClass('active');
-        $('html').removeClass('ov-hidden');
-    });
-
-    $('.style-tab').click(function() {
-        $('.style-tabs').find('.active').removeClass('active');
-        $(this).addClass('active');
-        $('.styles-elems').find('.styles-elem-item').hide();
-        $('#' + $(this).data('switch')).show();
-    });
-
+        myPlacemark = new ymaps.Placemark([51.845704, 55.132475], {
+            hintContent: 'Avto Rem Land',
+            balloonContent: 'Avto Rem Land'
+        }, {
+            iconLayout: 'default#image',
+            iconImageHref: '../img/map-marker.svg',
+            iconImageSize: [44, 52],
+            cursor: 'pointer',
+            iconImageOffset: [-30, -60],
+            balloonclose: true
+        });
+    myMap.behaviors.disable('scrollZoom');
+    myMap.geoObjects
+        .add(myPlacemark)
 
 });
 
 $(window).on('load resize scroll', function() {
 
     var width = $(window).width();
-
-    if ((width > '700') && (width < '1000')) {
-
-    }
 
     if (width > '700') {
 
