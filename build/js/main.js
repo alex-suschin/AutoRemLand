@@ -5,7 +5,34 @@ $(function() {
         slidesToShow: 3,
         slidesToScroll: 1,
         centerMode: true,
-        variableWidth: true
+        swipe: false,
+        variableWidth: true,
+        responsive: [{
+            breakpoint: 993,
+            settings: {
+                centerMode: true,
+                arrows: false,
+                dots: true,
+                swipe: true
+            }
+        }]
+    });
+
+    $('#cascade-slider').cascadeSlider({
+
+    });
+
+    $('.works-slider').children('.slick-prev').addClass('disable');
+
+    $(".works-slider").on("beforeChange", function(event, slick, currentSlide, slideCount, nextSlide) {
+        var indexCur = $('.works-slider').children('.slick-current').attr('data-slick-index');
+        console.log(indexCur);
+        if (indexCur === 0) {
+            $(this).children('.slick-prev').addClass('disable');
+        } else {
+            $(this).children('.slick-prev').removeClass('disable');
+
+        }
     });
 
 });
