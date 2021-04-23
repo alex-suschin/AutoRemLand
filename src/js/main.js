@@ -1,22 +1,6 @@
 $(function() {
 
-    $('.works-slider').slick({
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        centerMode: true,
-        swipe: false,
-        variableWidth: true,
-        responsive: [{
-            breakpoint: 993,
-            settings: {
-                centerMode: true,
-                arrows: false,
-                dots: true,
-                swipe: true
-            }
-        }]
-    });
+
 
     $('#cascade-slider').cascadeSlider({
 
@@ -24,16 +8,16 @@ $(function() {
 
     $('.works-slider').children('.slick-prev').addClass('disable');
 
-    $(".works-slider").on("beforeChange", function(event, slick, currentSlide, slideCount, nextSlide) {
-        var indexCur = $('.works-slider').children('.slick-current').attr('data-slick-index');
-        console.log(indexCur);
-        if (indexCur === 0) {
-            $(this).children('.slick-prev').addClass('disable');
-        } else {
-            $(this).children('.slick-prev').removeClass('disable');
+    // $(".works-slider").on("beforeChange", function(event, slick, currentSlide, slideCount, nextSlide) {
+    //     var indexCur = $('.works-slider').children('.slick-current').attr('data-slick-index');
+    //     console.log(indexCur);
+    //     if (indexCur === 0) {
+    //         $(this).children('.slick-prev').addClass('disable');
+    //     } else {
+    //         $(this).children('.slick-prev').removeClass('disable');
 
-        }
-    });
+    //     }
+    // });
 
 });
 
@@ -64,16 +48,23 @@ ymaps.ready(function() {
 
 });
 
-$(window).on('load resize scroll', function() {
+$(window).on('load resize', function() {
 
     var width = $(window).width();
 
-    if (width > '700') {
 
-    }
-
-    if (width < '700') {
-
+    if (width < '986') {
+        $('.works-slider:not(.slick-initialized)').slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            centerMode: true,
+            arrows: false,
+            dots: true,
+            variableWidth: true
+        });
+    } else {
+        $(".works-slider.slick-initialized").slick("unslick");
     }
 
 });
